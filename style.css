@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, sans-serif;    /* Main font */
+
+    max-width: 600px;                  /* Maximum width of app */
+
+    margin: 40px auto;                 /* Centers app horizontally */
+
+    padding: 20px;                     /* Space around page content */
+
+    text-align: center;                /* Center UI elements */
+}
+
+
+#angleDisplay {
+    max-width: 450px;                  /* Maximum dial size */
+
+    margin: 20px auto;                 /* Center the dial */
+}
+
+
+#angleDial {
+    width: 100%;                       /* Scale with available screen width */
+}
+
+
+#movementZone {
+    fill: rgba(0, 200, 0, 0.10);      /* Light green exercise range */
+
+    stroke: none;
+}
+
+
+#targetZone {
+    fill: rgba(0, 200, 0, 0.30);      /* Darker green target area */
+
+    stroke: none;
+}
+
+
+#staticArm {
+    stroke: black;                     /* Fixed physical limb */
+
+    stroke-width: 7;
+}
+
+
+#movingArmStart {
+    stroke: blue;                      /* Starting-position marker */
+
+    stroke-width: 5;
+}
+
+
+#movingArmTarget {
+    stroke: red;                       /* Target-position marker */
+
+    stroke-width: 5;
+}
+
+
+#movingArmCurrent {
+    stroke: orange;                    /* Live moving limb */
+
+    stroke-width: 8;
+}
+
+
+.joint {
+    fill: black;                       /* Center joint */
+}
+
+
+#currentAngle {
+    font-size: 48px;                   /* Large live joint angle */
+
+    font-weight: bold;
+
+    margin-top: 5px;
+}
+
+
+#angleSlider {
+    width: 100%;                       /* Temporary simulator */
+}
+
+
+#repCount {
+    font-size: 48px;                   /* Large rep counter */
+}
+
+
+button {
+    padding: 12px 20px;                /* Space inside buttons */
+
+    margin: 5px;                       /* Space between buttons */
+
+    font-size: 16px;
+}
+
+#statusMessage {
+    height: 28px;
+    margin: 5px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dialCircle {
+    fill: none;
+    stroke: #dddddd;
+    stroke-width: 2;
+
+    transition: stroke 0.1s, stroke-width 0.1s;
+}
+
+
+.dialCircle.targetFlash {
+    stroke: green;
+    stroke-width: 20;
+}

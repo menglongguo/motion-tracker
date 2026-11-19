@@ -1,0 +1,213 @@
+<!DOCTYPE html> <!-- Tells browser this is modern HTML -->
+
+<html>
+
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Makes page scale properly on phones -->
+
+    <title>Motion Tracker</title> <!-- Browser tab name -->
+
+    <link rel="stylesheet" href="style.css"> <!-- Loads our CSS -->
+</head>
+
+
+<body>
+
+    <h1>Motion Tracker</h1>
+
+    <label for="exerciseSelect">Exercise:</label>
+
+    <select id="exerciseSelect">
+        <option value="seatedDumbbellPress">Seated Dumbbell Press</option>
+        <option value="bicepCurl">Bicep Curl</option>
+        <option value="lSit">L-Sit</option>
+        <option value="speedBicepCurl">Speed Bicep Curl</option>
+        <option value="dumbbellLifts">Dumbbell Lifts</option>
+    </select>
+
+    <!-- Name of the currently loaded exercise -->
+    <h2 id="exerciseName">Exercise</h2>
+
+
+    <p>
+        Moving Arm Start:
+        <span id="movingArmStartAngle">0</span>&deg;
+    </p>
+
+
+    <p>
+        Moving Arm Target:
+        <span id="movingArmTargetAngle">0</span>&deg;
+    </p>
+
+
+    <!-- Container for our entire visual dial -->
+    <div id="angleDisplay">
+
+        <!-- SVG gives us a 400 x 400 drawing area -->
+        <svg id="angleDial" viewBox="0 0 400 400">
+
+            <!-- Background circle -->
+            <circle
+                cx="200"
+                cy="200"
+                r="170"
+                class="dialCircle"
+            />
+
+
+            <!-- Light-green region showing intended movement range -->
+            <path id="movementZone"></path>
+
+
+            <!-- Darker-green region showing target tolerance -->
+            <path id="targetZone"></path>
+
+
+            <!-- Fixed physical limb -->
+            <line
+                id="staticArm"
+                x1="200"
+                y1="200"
+                x2="370"
+                y2="200"
+            />
+
+
+            <!-- Fixed marker showing where moving limb should START -->
+            <line
+                id="movingArmStart"
+                x1="200"
+                y1="200"
+                x2="370"
+                y2="200"
+            />
+
+
+            <!-- Fixed marker showing where moving limb should STOP -->
+            <line
+                id="movingArmTarget"
+                x1="200"
+                y1="200"
+                x2="370"
+                y2="200"
+            />
+
+
+            <!-- Live position of the actual moving limb -->
+            <line
+                id="movingArmCurrent"
+                x1="200"
+                y1="200"
+                x2="370"
+                y2="200"
+            />
+
+
+            <!-- Joint at center -->
+            <circle
+                cx="200"
+                cy="200"
+                r="8"
+                class="joint"
+            />
+
+        </svg>
+
+
+        <!--
+            Main display.
+
+            REPS / HOLD / MAX:
+            Shows the live joint angle.
+
+            SPEED:
+            Shows the exercise timer instead.
+        -->
+        <p id="currentAngle">0&deg;</p>
+
+
+        <!--
+            Old fake sensor slider.
+
+            We are keeping the element because app.js still knows about it,
+            but hiding it because the real BNO085 sensors are now being used.
+        -->
+        <input
+            type="range"
+            id="angleSlider"
+            min="0"
+            max="360"
+            value="90"
+            step="1"
+            style="display: none;"
+        >
+
+    </div>
+
+
+    <!--
+        This label changes depending on exercise mode:
+
+        Reps
+        Hold Time
+        Reps Remaining
+        Max Angle
+    -->
+    <h2 id="metricLabel">Reps</h2>
+
+
+    <!--
+        This is still called repCount so we don't have to make large
+        changes to the existing CSS / JavaScript structure.
+
+        Its CONTENT changes depending on mode.
+    -->
+    <p id="repCount">0</p>
+
+
+    <button id="calibrateButton">Calibrate</button>
+
+    <button id="startButton">Start Exercise</button>
+
+    <button id="exportButton">Export CSV</button>
+
+    <button id="updateExercisesButton">Update Exercises</button>
+
+    <button id="syncResultsButton">Push to Excel</button>
+    
+    <div>
+    Logs waiting to sync:
+    <strong id="pendingCount">0</strong>
+    </div>
+
+
+    <p id="statusMessage">&nbsp;</p>
+
+    <br><br>
+
+
+    <label>
+        <input type="checkbox" id="soundToggle" checked>
+        Sound
+    </label>
+
+
+    <label>
+        <input type="checkbox" id="flashToggle" checked>
+        Flash
+    </label>
+
+
+    <script>
+        const script = document.createElement("script");
+        script.src = "app.js?v=" + Date.now();
+        document.body.appendChild(script);
+    </script>    
+    
+</body>
+
+</html>
